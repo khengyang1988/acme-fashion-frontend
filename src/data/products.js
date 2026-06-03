@@ -41,11 +41,11 @@ export const PRODUCTS = [
     category: "Bottoms",
     price: 145.00,
     sku: "WLT-TAN-32",
-    description: "High-waisted linen blend, pressed centre crease.",
+    description: "High-waisted linen blend, pressed crease.",
     color: "Tan",
     sizes: ["XS","S","M","L","XL"],
     stock: 18,
-    image: "https://images.unsplash.com/photo-1594938374182-a57d5c8c3a4f?w=400&q=80"
+    image: "https://i.pinimg.com/originals/2d/ee/58/2dee58b4af26b87a92ceff6987c0a548.jpg?w=400&q=80"
   },
   {
     _id: "prod_005",
@@ -70,7 +70,31 @@ export const PRODUCTS = [
     sizes: ["XS","S","M","L","XL"],
     stock: 11,
     image: "https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=400&q=80"
+  },
+  {
+    _id: "prod_007",
+    name: "Linen T-Shirt",
+    category: "Tops",
+    price: 65.00,
+    sku: "LTS-WHT-M",
+    description: "Enzyme-washed linen, relaxed fit, crew neck.",
+    color: "White",
+    sizes: ["XS","S","M","L","XL","XXL"],
+    stock: 30,
+    image: "https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=400&q=80"
+  },
+  {
+    _id: "prod_008",
+    name: "Heavy Metal Tee",
+    category: "Tops",
+    price: 45.00,
+    sku: "HMT-BLK-M",
+    description: "100% heavyweight cotton, washed black.",
+    color: "Washed Black",
+    sizes: ["XS","S","M","L","XL","XXL"],
+    stock: 25,
+    image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=400&q=60"
   }
 ]
 
-export const CATEGORIES = ["All", "Outerwear", "Dresses", "Knitwear", "Bottoms", "Accessories"]
+export const CATEGORIES = ["All", "Outerwear", "Dresses", "Knitwear", "Bottoms", "Tops", "Accessories"]

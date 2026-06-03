@@ -24,6 +24,9 @@ export default function ProductCard({ product, onAddToCart, addedKeys }) {
       style={{
         background: 'var(--white)', borderRadius: 12,
         overflow: 'hidden',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
         boxShadow: hovered
           ? '0 8px 40px rgba(0,0,0,0.12)'
           : '0 2px 20px rgba(0,0,0,0.06)',
@@ -32,8 +35,8 @@ export default function ProductCard({ product, onAddToCart, addedKeys }) {
         border: '1px solid var(--border)'
       }}
     >
-      {/* Image */}
-      <div style={{ position: 'relative', height: 300, overflow: 'hidden', background: '#F0EDE8' }}>
+      {/* Image — fixed height */}
+      <div style={{ position: 'relative', height: 300, flexShrink: 0, overflow: 'hidden', background: '#F0EDE8' }}>
         <img
           src={product.image}
           alt={product.name}
@@ -63,61 +66,77 @@ export default function ProductCard({ product, onAddToCart, addedKeys }) {
         )}
       </div>
 
-      {/* Info */}
-      <div style={{ padding: '18px 18px 22px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 4 }}>
-          <h3 style={{
-            fontFamily: 'Playfair Display, serif',
-            fontSize: 16, fontWeight: 700, color: 'var(--black)', lineHeight: 1.3
-          }}>{product.name}</h3>
-          <span style={{ fontSize: 15, fontWeight: 500, whiteSpace: 'nowrap', marginLeft: 8 }}>
-            £{product.price.toFixed(2)}
-          </span>
-        </div>
-        <p style={{ fontSize: 11, color: 'var(--mid)', marginBottom: 3 }}>{product.color}</p>
-        <p style={{ fontSize: 11, color: 'var(--mid)', lineHeight: 1.5, marginBottom: 14 }}>{product.description}</p>
+      {/* Info — flex column so button stays at bottom */}
+      <div style={{ padding: '18px 18px 22px', flex: 1, display: 'flex', flexDirection: 'column' }}>
 
-        {/* Sizes */}
-        <div style={{ marginBottom: 12 }}>
-          <p style={{
-            fontSize: 10, letterSpacing: 2, textTransform: 'uppercase',
-            color: sizeError ? 'var(--error)' : 'var(--mid)', marginBottom: 7
-          }}>
-            {sizeError ? 'Please select a size' : 'Select size'}
-          </p>
-          <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
-            {product.sizes.map(size => (
-              <button key={size} onClick={() => { setSelectedSize(size); setSizeError(false) }} style={{
-                width: 36, height: 36,
-                border: '1px solid',
-                borderColor: selectedSize === size ? 'var(--black)' : sizeError ? 'var(--error)' : 'var(--border)',
-                borderRadius: 6,
-                background: selectedSize === size ? 'var(--black)' : 'transparent',
-                color: selectedSize === size ? 'var(--white)' : 'var(--charcoal)',
-                fontSize: 11, fontWeight: 500, cursor: 'pointer', transition: 'all 0.15s'
-              }}>{size}</button>
-            ))}
+        {/* Top section — name, price, color, description — fixed area */}
+        <div style={{ flex: 1 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 4 }}>
+           <h3 style={{
+			  fontFamily: 'Playfair Display, serif',
+			  fontSize: 16, fontWeight: 700, color: 'var(--black)', lineHeight: 1.3,
+			  height: '2.6em',
+			  overflow: 'hidden',
+			  display: '-webkit-box',
+			  WebkitLineClamp: 2,
+			  WebkitBoxOrient: 'vertical',
+			}}>{product.name}</h3>
+            <span style={{ fontSize: 15, fontWeight: 500, whiteSpace: 'nowrap', marginLeft: 8 }}>
+              £{product.price.toFixed(2)}
+            </span>
           </div>
+          <p style={{ fontSize: 11, color: 'var(--mid)', marginBottom: 3 }}>{product.color}</p>
+          <p style={{
+            fontSize: 11, color: 'var(--mid)', lineHeight: 1.5, marginBottom: 0,
+            display: '-webkit-box',
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden'
+          }}>{product.description}</p>
         </div>
 
-        {/* Add to Bag */}
-        <button onClick={handleAdd} style={{
-          width: '100%', height: 42,
-          background: justAdded ? 'var(--success)' : 'var(--black)',
-          color: 'var(--white)', border: 'none', borderRadius: 8,
-          fontSize: 11, letterSpacing: 2, textTransform: 'uppercase',
-          fontWeight: 500, cursor: 'pointer', transition: 'background 0.3s',
-          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8
-        }}>
-          {justAdded ? (
-            <>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <polyline points="20 6 9 17 4 12"/>
-              </svg>
-              Added
-            </>
-          ) : 'Add to Bag'}
-        </button>
+        {/* Bottom section — sizes and button always pinned to bottom */}
+        <div style={{ marginTop: 14 }}>
+          <div style={{ marginBottom: 12 }}>
+            <p style={{
+              fontSize: 10, letterSpacing: 2, textTransform: 'uppercase',
+              color: sizeError ? 'var(--error)' : 'var(--mid)', marginBottom: 7
+            }}>
+              {sizeError ? 'Please select a size' : 'Select size'}
+            </p>
+            <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
+              {product.sizes.map(size => (
+                <button key={size} onClick={() => { setSelectedSize(size); setSizeError(false) }} style={{
+                  width: 36, height: 36,
+                  border: '1px solid',
+                  borderColor: selectedSize === size ? 'var(--black)' : sizeError ? 'var(--error)' : 'var(--border)',
+                  borderRadius: 6,
+                  background: selectedSize === size ? 'var(--black)' : 'transparent',
+                  color: selectedSize === size ? 'var(--white)' : 'var(--charcoal)',
+                  fontSize: 11, fontWeight: 500, cursor: 'pointer', transition: 'all 0.15s'
+                }}>{size}</button>
+              ))}
+            </div>
+          </div>
+
+          <button onClick={handleAdd} style={{
+            width: '100%', height: 42,
+            background: justAdded ? 'var(--success)' : 'var(--black)',
+            color: 'var(--white)', border: 'none', borderRadius: 8,
+            fontSize: 11, letterSpacing: 2, textTransform: 'uppercase',
+            fontWeight: 500, cursor: 'pointer', transition: 'background 0.3s',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8
+          }}>
+            {justAdded ? (
+              <>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                Added
+              </>
+            ) : 'Add to Bag'}
+          </button>
+        </div>
       </div>
     </div>
   )

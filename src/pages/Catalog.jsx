@@ -61,10 +61,11 @@ export default function Catalog({ onAddToCart }) {
 
       {/* Product Grid */}
       <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-        gap: 28
-      }}>
+  display: 'grid',
+	  gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+	  gap: 28,
+	  alignItems: 'start'
+	}}>
         {filtered.map((product, i) => (
           <div key={product._id} className="fade-up" style={{ animationDelay: `${i * 0.06}s` }}>
             <ProductCard
